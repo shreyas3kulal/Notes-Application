@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <style>
+         .form-textbox {
+                       
+                        height: 40px !important;
+                        width: 300px !important;
+                        font-size: 22px !important;
+                        border-style: groove;
+                        margin-left:40px;
+                        outline:5px solid chartreuse;
+                        
+         }
+         .form-textboxs {
+                        height: 300px !important;
+                        width: 300px !important;
+                        font-size: 18px !important;
+                        border-style: groove; 
+                        margin-left:40px; 
+                        outline:5px solid chartreuse; 
+                      }
+        
+        .tables{
+            position:absolute;
+            top:110px;
+            margin-left: 400px;
+            column-width:40px;
+            word-wrap: break-word;         /* All browsers since IE 5.5+ */
+            overflow-wrap: break-word;
+            table-layout: fixed;
+            outline:5px solid chartreuse;
+            
+        }
+        th,td{
+            padding: 10px;
+        }
+        .sec{
+            border:2px solid black;
+            width:10%;
+            outline:5px solid chartreuse;
+            background-color: wheat;
+        }
+        .form-box
+        {
+            margin-left: 40px;
+        
+        }
+       
+        .table_legenda th {
+            overflow-wrap: break-word;
+            }
+            
+        .savebox
+        {
+            position:absolute;
+            margin-left: 280px;
+            
+           
+        }
+        .tables tr:nth-child(even) {
+                    background-color: wheat;
+                    }
+        .tableheading
+        {
+            position: absolute;
+            top:120px;
+            margin-left: 400px;
+            font-size: large;
+            color: black;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(227, 255, 172);">
+    
+   
+    <nav class='navbar is-dark'>
+        <div class='navbar-brand'>
+            <a href="/editor/" class="navbar-item" style="color: greenyellow"><b>Welcome , {{ user.username }}</b></a>
+            
+        </div>
+        <div class="navbar-menu">
+            <div class='navbar-end'>
+              
+                <a href="/UserLogin/" class="navbar-item" style="color: greenyellow"><b>Logout</b></a>
+            </div>
+        </div>
+    </nav>
+   
+    
+      <section class='section'>
+          <div class='columns'>
+              <div class='sec column is-2'>
+                  <aside class="menu">
+                      <h1 style="color:black; font-size: large; " ><b>Notes List</b></h1>
+                      <ul class="menu-list" style="font-size: large;">
+                          {% for doc in documents %}
+                          <li>
+                              <a href="">🔳 {{ doc.title}}</a>
+                              <p>🔺 {{doc.content}}</p>
+                          </li>
+                          {% endfor %}
+
+                      </ul>
+                  </aside>
+                
+              </div>
+              <div class='column is-10'>
+                  <form method='POST' enctype='multipart/form-data'>
+                      {% csrf_token %}
+                      <input type="hidden" class='form-group form-textbox' size='30' name="docid" value='{{ docid }}'>
+
+                      <div class='field'>
+                          <label for="" class="label form-box">Write Title
+                              {% if document %}
+                              <span class='has-text-grey-light'>
+                                  Created at:{{ document.created_at|date:"m/d Y"}} /
+                                  Modified at:{{ document.modified_at|date:"m/d Y"}}
+
+                                {% endif %}
+
+                              </span>
+                          </label>
+                          <div class="control">
+                              
+                            <textarea class="form-group form-textbox" name="title" placeholder="Title" maxlength="15" required>{% if document %} {{ document.title }} {% endif %} </textarea>
+                          </div>
+                    </div>
+
+                    <div class='field'>
+                      <label for="" class="label form-box">Write Description</label>
+                     
+                      <div class="control">
+                          <textarea class="form-group form-textboxs" name="content" placeholder="Content" maxlength="180" required>{% if document %} {{ document.content }} {% endif %} </textarea>
+                         
+                      </div>
+                      <br>
+                      <div class='field'>
+                        <label for="" class="label form-box">Upload Notes</label>
+                       
+                        <div class="control">
+                            <input type="file" name="files" class="form-box">
+                           
+                        </div>
+                    </div>
+                    <div class='field is-grouped'>
+                      <div class="control">
+                          <button class='button is-primary savebox'>Save</button>
+                          <br>
+                          <br>
+                      </div>
+                     
+                  </form>
+                  <br>
+                  <br>
+                 
+              </div>
+              
+              <h3 class="tableheading"><b></b></h3>
+              <table border="4" width='55%' class='table-hover tables'>
+                
+                <tr>
+                    <td width='10%'><h1><b>Date<b></h1></td>
+                    <td width='10%'><h1><b>Title</b></h1></td>
+                    <td width='15%'><h1><b>Description</b></h1></td>
+                    <td width='13%'><h1><b>Notes File</b></h1></td>
+                    <td width='8%'><h1><b>Edit</b></h1></td>
+                    <td width='8%'><h1><b>Delete</b></h1></td>
+                </tr>
+                {% for r in documents %}
+                <tr>
+                    <td>{{r.created_at}}</td>
+                    <td>{{r.title}}</td>
+                    <td width='10%'>{{r.content}}</td>
+                    <td><a href="/media/{{r.files}}/" style="color:black; background-color: rgb(114, 241, 30);" class="button is-primary">View/Download</a></td>
+                    <td><a href="/{{r.id}}" style="color:black; background-color: rgb(255, 238, 0);" class="button is-primary">Edit</a></td>
+                    <td><a href="/destroy/{{r.id}}" style="color:black;background-color: red;" class ="button is-primary" >Delete</td></a>
+                   <!-- <td><p data-placement='top' data-toggle='tooltip' title='Delete'><a href="/destroy/{{r.id}}" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target='#delete'><span class='glyphicon glyphicon-trash'></span></a></p></td>-->
+                </tr>
+                {% endfor %}
+            </table>
+        
+          </div>
+      </section>
+      
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <style>
+         .form-textbox {
+                        height: 40px !important;
+                        width: 500px !important;
+                        font-size: 14px !important;
+                        border-style: groove;
+                        outline:5px solid chartreuse;
+         }
+         .form-textboxs {
+                        height: 200px !important;
+                        width: 500px !important;
+                        font-size: 14px !important;
+                        border-style: groove;   
+                        outline:5px solid chartreuse;
+                      }
+        .head{
+              margin-top:40px;
+              margin-left: 30px;
+              font-size: xx-large;
+
+            }
+          
+    
+    </style>
+</head>
+<body style="background-color: rgb(227, 255, 172);">
+    <nav class='navbar is-dark'>
+        <div class='navbar-brand'>
+            <a href="/editor/" class="navbar-item" style="color: greenyellow; font-size: x-large;" ><b>Welcome , {{ user.username }}</b></a>
+            
+        </div>
+        
+        </div>
+        
+    </nav>
+    <h2 class='head'><b><em>Edit Notes</em></b></h2>
+      <section class='section'>
+          
+                  <form method='POST' enctype='multipart/form-data'>
+                      {% csrf_token %}
+                      <input type="hidden" class='form-group form-textbox' size='30' name="docid" value='{{ docid }}'>
+
+                      <div class='field'>
+                          <label for="" class="label">Title      (
+                              {% if document %}
+                              <span class='has-text-grey-dark'>
+                                  [Created at:{{ document.created_at|date:"m/d Y"}} ]
+                                  [Modified at:{{ document.modified_at|date:"m/d Y"}}] )
+
+                                {% endif %}
+
+                              </span>
+                          </label>
+                          
+                          <div class="control">
+                              
+                              <textarea class="form-group form-textbox" name="title" placeholder="Title" maxlength="15" required>{% if document %} {{ document.title }} {% endif %} </textarea>
+                          </div>
+                      </div>
+
+                      <div class='field'>
+                        <label for="" class="label">Content</label>
+                        <div class="control">
+                            <textarea class="form-group form-textboxs" name="content" placeholder="Content" maxlength="250" required>{% if document %} {{ document.content }} {% endif %} </textarea>
+                           
+                        </div>
+                    </div>
+                    <br>
+                      <div class='field'>
+                        <label for="" class="label form-box">Upload Notes</label>
+                       
+                        <div class="control">
+                            <input type="file" name="files" class="form-box">
+                           
+                        </div>
+                        <br>
+                    <div class='field is-grouped'>
+                      <div class="control">
+                          <button class='button is-primary'>Save</button>
+                          <br>
+                          <br>
+                      </div>
+                     
+                  </form>
+                  <br>
+                  <br>
+                 
+              </div>
+              
+          </div>
+      </section>
+</body>
+</html>

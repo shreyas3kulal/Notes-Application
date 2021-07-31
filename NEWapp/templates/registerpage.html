@@ -1,0 +1,129 @@
+<html lang="en">
+      <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>Django Notes App.com</title>
+        <style>
+            .form-textbox {
+                    
+                    height: 50px !important;
+                    width: 260px !important;
+                    font-size: 14px !important;
+                    outline:none;
+                    border-radius: 0.2rem;
+                    border-color: black;
+                    border-width: 3px;
+                    border-radius: 2rem;
+                    padding: 10px;
+                   }
+            .loginform{
+                      position: absolute;
+                      top:100px;   
+                      margin-left:520px;              
+                      width: 25%;
+                      
+                      text-align: center;
+                      
+                      
+                      
+                      }
+            .heading{
+                  position: absolute;
+                  top: 50px;
+                  left: 140px;
+                  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                  color:rgb(61, 65, 53);
+                  font-size: x-large;
+                }
+            
+                .inputContainer {
+                      width: 100%;
+                      margin-bottom: 10px;
+                }
+                
+                  .icon {
+                        padding: 15px;
+                        color: rgb(49, 0, 128);
+                        width: 70px;
+                        text-align: left;
+                      }
+               
+            .inputContainer i {
+                               position: absolute; 
+                              }
+            input{
+              text-align:center;
+            }
+        </style>
+          
+      </head>
+      <body>
+
+        {% load static %}
+        <img class="mb-4" src="{%static 'IMAGES/wallpapertip_login-screen.png' %}"  style="width:100%;">
+        <div class="heading"><h1>Notes App</h1></div>
+        <div class='loginform'>
+          <h1 style="color:rgb(0,0,0)">Register Here </h1>
+          <br>
+          <form action="/register/" method="post">
+            {% csrf_token %}
+        
+            <div class="inputContainer">
+              <i class="fa fa-user icon"> </i>
+              <input type="text" class='form-textbox' name='user_name' id="user_name"  placeholder="     Username  "  size='30' width="8px" required>
+            </div>
+            <br>
+            <div class="inputContainer">
+                <i class="fa fa-envelope icon"> </i>
+                <input type="email"  name="email" class="form-textbox" placeholder="Email " value="" required/>
+              </div>
+            
+            <br>
+            <div class="inputContainer">
+              <i class="fa fa-key icon"> </i>
+              <input type="password" class='form-textbox' name='password' id="inputPassword"  placeholder="     Password " size="30" width="2px" required>
+            </div>
+
+            <br>
+            <div class="inputContainer">
+              <i class="fa fa-key icon"> </i>
+              <input type="password" class='form-textbox' name='confirm_password' id="inputPassword"  placeholder="   Confirm  Password " size="30" width="2px" required>
+            </div>
+         
+        
+         <br>
+         <button type="submit" class="form-textbox" value="" style="background-color: rgb(179, 235, 50); outline:none;">Create Account</button>
+       </form>
+       <h2 style="color:rgb(0, 0, 0)">Already Registered?</h2>
+       <a href="/UserLogin/" style="color:rgb(56, 54, 54); text-decoration:none;"><h2>Login</h2></a>
+      </div>
+        
+          <div>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                    <script>alert("{{ message }}")</script>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        </div>
+            
+          <div class="checkbox mb-3">
+       </div>
+       <hr>
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+      <!--<div class="sticky-bottom jumbotron jumbotron-fluid text-white text-left"  style="background-color: #72147e;"></div>--> 
+      
+      </body>
+    </html>
